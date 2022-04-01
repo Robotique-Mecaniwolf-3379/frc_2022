@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
 
     // Creates UsbCamera and MjpegServer [1] and connects them
     CameraServer.startAutomaticCapture();
-    SmartDashboard.putStringArray("Auto List", new String[] { "safe", "fanci", "nothing" });
+    SmartDashboard.putStringArray("Auto List", new String[] { "safe", "fanci", "nothing", "fanciv2" });
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -67,10 +67,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    if (m_autoName.equals("safe")) {
-      if (m_timer.get() > 1.0 && m_timer.get() < 3.0) {
+    if (m_autoName.equals("safe")) { // Mode selected
+      if (m_timer.get() > 1.0 && m_timer.get() < 3.0) { // Condition for the robot to drive
         m_robotDrive.driveCartesian( -0.3, 0.0, 0.0, 0.0); // drive forwards half speed
-      } else {
+      } else {                                             // if the timer doesn't fulfill the condition
         m_robotDrive.stopMotor(); // stop robot
       }
       if (m_timer.get() < 1.0) {
@@ -109,7 +109,29 @@ public class Robot extends TimedRobot {
       } else {
         m_robotDrive.stopMotor(); // stop robot
       }
-      
+    }
+    if (m_autoName.equals("fanciv2")) {
+      if (m_timer.get() > 1.0 && m_timer.get() < 4.1) {
+        // drive backwards 100 inches at half speed
+        m_robotDrive.driveCartesian( -0.3, 0.0, 0.0, 0.0); 
+      } else if (m_timer.get() > 4.2 && m_timer.get() < 4.85) {
+         // turn left 70 degrees
+        m_robotDrive.driveCartesian( 0.0, -0.3, 0.0, 0.0); 
+      } else if (m_timer.get() > 5.0 && m_timer.get() < 6.1) {
+        // drive forwards 30 inches at half speed
+        m_robotDrive.driveCartesian( 0.3, 0.0, 0.0, 0.0); 
+      } else if (m_timer.get() > 7.0 && m_timer.get() < 8.1) {
+        // drive backwards 30 inches at half speed
+        m_robotDrive.driveCartesian( -0.3, 0.0, 0.0, 0.0); 
+      } else if (m_timer.get() > 8.2 && m_timer.get() < 8.9) {
+         // turn right 70 degrees
+        m_robotDrive.driveCartesian( 0.0, 0.3, 0.0, 0.0); 
+      } else if (m_timer.get() > 8.95 && m_timer.get() < 12.05) {
+        // drive forwards 100 inches at half speed
+        m_robotDrive.driveCartesian( 0.3, 0.0, 0.0, 0.0); 
+      } else {
+        m_robotDrive.stopMotor(); // stop robot
+      } 
     }
   }
 
